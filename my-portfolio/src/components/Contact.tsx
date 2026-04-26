@@ -1,4 +1,41 @@
+import { useRef, useState } from 'react';
+import type { FormEvent } from 'react';
+import emailjs from '@emailjs/browser';
+
 export default function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!form.current) return;
+
+    setStatus('sending');
+
+    // IMPORTANT: Replace these with your actual EmailJS credentials
+    // Create an account at https://www.emailjs.com/
+    const serviceId = 'YOUR_SERVICE_ID';
+    const templateId = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
+
+    emailjs
+      .sendForm(serviceId, templateId, form.current, {
+        publicKey: publicKey,
+      })
+      .then(
+        () => {
+          setStatus('success');
+          form.current?.reset();
+          setTimeout(() => setStatus('idle'), 5000);
+        },
+        (error) => {
+          console.error('FAILED...', error.text);
+          setStatus('error');
+          setTimeout(() => setStatus('idle'), 5000);
+        },
+      );
+  };
+
   return (
     <section id="contact">
       <div className="container">
@@ -61,20 +98,34 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+          <form ref={form} className="contact-form" onSubmit={sendEmail}>
             <div className="form-group">
               <label>Name</label>
-              <input type="text" className="form-control" placeholder="Aakash Patil" />
+              <input type="text" name="user_name" className="form-control" placeholder="Aakash Patil" required />
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" className="form-control" placeholder="aakash@example.com" />
+              <input type="email" name="user_email" className="form-control" placeholder="aakash@example.com" required />
             </div>
             <div className="form-group">
               <label>Message</label>
-              <textarea className="form-control" rows={4} placeholder="How can I help you?"></textarea>
+              <textarea name="message" className="form-control" rows={4} placeholder="How can I help you?" required></textarea>
             </div>
-            <button type="submit" className="btn btn-primary">Send Message</button>
+            
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {status === 'success' && (
+              <p style={{ color: 'var(--accent)', marginTop: '10px', fontSize: '0.9rem' }}>
+                ✅ Message sent successfully! Auto-reply has been triggered.
+              </p>
+            )}
+            {status === 'error' && (
+              <p style={{ color: '#ff6b6b', marginTop: '10px', fontSize: '0.9rem' }}>
+                ❌ Failed to send message. Please try again.
+              </p>
+            )}
           </form>
         </div>
       </div>
