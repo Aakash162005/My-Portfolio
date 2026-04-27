@@ -1,3 +1,5 @@
+import aboutImg from '../assets/about.png';
+
 export default function About() {
   return (
     <section id="about">
@@ -7,11 +9,13 @@ export default function About() {
           <h2 className="section-title">About Me</h2>
         </div>
         <div className="about-grid">
-          <div className="about-image-wrapper reveal">
-            <div className="image-glow"></div>
-            <img src="/about_me_dev_illustration_1777185035197.png" alt="Development Illustration" className="hero-image" />
+          <div className="about-image-container reveal" style={{ transitionDelay: '0.2s' }}>
+            <div className="about-image-wrapper">
+              <div className="image-glow"></div>
+              <img src={aboutImg} alt="About Me" className="about-image" />
+            </div>
           </div>
-          <div className="about-content reveal">
+          <div className="about-content reveal" style={{ transitionDelay: '0.4s' }}>
             <p className="hero-desc" style={{ maxWidth: '100%', textAlign: 'left' }}>
               I am a 3rd-year Computer Engineering student at R C Patel Institute of Technology, passionate about building
               intelligent applications and solving real-world problems. With a solid foundation in Java, Spring Boot, and
