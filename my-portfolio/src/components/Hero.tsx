@@ -54,7 +54,7 @@ export default function Hero() {
               Available for new opportunities
             </div>
             <h1 className="hero-title">
-              Building <span className="gradient-text">scalable</span><br />digital experiences
+              Building <span className="gradient-text">scalable </span><br />digital experiences
             </h1>
             <div className="typewriter-container" id="typewriter"></div>
             <p className="hero-desc">

@@ -6,10 +6,10 @@ export default function Coding() {
           <span className="section-label">// competitive programming</span>
           <h2 className="section-title">Coding Achievements</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
+        <div className="coding-grid">
           {/* CodeChef Card */}
-          <div className="tech-card reveal"
-            style={{ padding: '40px', textAlign: 'center', background: 'linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(17, 24, 39, 0.7) 100%)' }}>
+          <div className="tech-card reveal coding-card"
+            style={{ textAlign: 'center', background: 'linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(17, 24, 39, 0.7) 100%)' }}>
             <div style={{ fontSize: '3rem', marginBottom: '20px' }}>👨‍🍳</div>
             <h3 className="heading" style={{ marginBottom: '10px' }}>CodeChef</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
@@ -31,8 +31,9 @@ export default function Coding() {
           </div>
 
           {/* LeetCode Card */}
-          <div className="tech-card reveal"
-            style={{ padding: '40px', textAlign: 'center', background: 'linear-gradient(135deg, rgba(255, 161, 22, 0.1) 0%, rgba(17, 24, 39, 0.7) 100%)', transitionDelay: '0.2s' }}>
+          <div className="tech-card reveal coding-card"
+            style={{ textAlign: 'center', background: 'linear-gradient(135deg, rgba(255, 161, 22, 0.1) 0%, rgba(17, 24, 39, 0.7) 100%)', transitionDelay: '0.2s' }}>
+
             <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🚀</div>
             <h3 className="heading" style={{ marginBottom: '10px' }}>LeetCode</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>

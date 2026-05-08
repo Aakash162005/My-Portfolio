@@ -41,7 +41,8 @@ export default function Contact() {
       <div className="container">
         <div className="contact-wrapper reveal">
           <div>
-            <h2 className="section-title" style={{ textAlign: 'left' }}>Let's connect</h2>
+            <h2 className="section-title">Let's connect</h2>
+
             <p className="hero-desc">I'm always open to discussing new projects, creative ideas or opportunities to be part of
               your visions.</p>
             <div style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
