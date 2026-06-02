@@ -63,7 +63,7 @@ export default function Hero() {
             </p>
             <div className="cta-buttons">
               <a href="#projects" className="btn btn-primary">⚡ View Projects</a>
-              <a href="/Aakash Patil resume.pdf" className="btn btn-outline" download>📄 Download Resume</a>
+              <a href="\Aakash Patil Resume.pdf" className="btn btn-outline" download>📄 Download Resume</a>
             </div>
           </div>
           <div className="hero-image-wrapper">
