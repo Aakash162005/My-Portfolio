@@ -16,15 +16,14 @@ export default function About() {
             </div>
           </div>
           <div className="about-content reveal" style={{ transitionDelay: '0.4s' }}>
-            <p className="hero-desc">
-              I am a 3rd-year Computer Engineering student at R C Patel Institute of Technology, passionate about building
-              intelligent applications and solving real-world problems. With a solid foundation in Java, Spring Boot, and
-              database systems, I'm currently expanding my horizons into React, Docker, Kafka, and AI integration.
+            <p className="hero-desc" style={{ textAlign: 'justify' }}>
+              I am a <strong>4th-year</strong> Computer Engineering student at <strong>R. C. Patel Institute of Technology</strong> with a strong passion for Full Stack Java Development and scalable software engineering. I enjoy designing secure backend systems, developing REST APIs, and building production-ready applications using modern technologies.
             </p>
-            <p className="hero-desc" style={{ marginTop: '20px' }}>
-              My journey in software development is driven by a curiosity to understand how complex systems work and a
-              desire to create software that makes a meaningful impact—like <strong>KisanMate</strong> for farmers and{' '}
-              <strong>SkillBridge</strong> for aspiring professionals.
+            <p className="hero-desc" style={{ marginTop: '20px', textAlign: 'justify' }}>
+              My technical expertise includes Java, Spring Boot, Spring Security, Microservices, PostgreSQL, Hibernate, and REST APIs. I am currently strengthening my frontend skills with React while exploring Docker, Apache Kafka, and cloud-native application development to build end-to-end scalable solutions.
+            </p>
+            <p className="hero-desc" style={{ marginTop: '20px', textAlign: 'justify' }}>
+              I have developed projects such as <strong>AgroConnect</strong>, a production-style microservices-based agriculture e-commerce platform, <strong>KisanMate</strong>, a smart farming solution, and <strong>SkillBridge</strong>, an AI-powered career development platform. Along with software development, I actively practice Data Structures & Algorithms to improve my problem-solving skills. My goal is to build impactful, scalable applications and contribute as a <strong>Full Stack Java Developer</strong>.
             </p>
 
           </div>
