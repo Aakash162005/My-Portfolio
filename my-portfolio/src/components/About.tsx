@@ -19,7 +19,7 @@ export default function About() {
             <p className="hero-desc">
               I am a 3rd-year Computer Engineering student at R C Patel Institute of Technology, passionate about building
               intelligent applications and solving real-world problems. With a solid foundation in Java, Spring Boot, and
-              database systems, I'm currently expanding my horizons into React, Docker, and AI integration.
+              database systems, I'm currently expanding my horizons into React, Docker, Kafka, and AI integration.
             </p>
             <p className="hero-desc" style={{ marginTop: '20px' }}>
               My journey in software development is driven by a curiosity to understand how complex systems work and a

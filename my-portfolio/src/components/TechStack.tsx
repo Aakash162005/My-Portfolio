@@ -25,8 +25,15 @@ export default function TechStack() {
               <span className="tech-tag">Python</span>
               <span className="tech-tag">C</span>
               <span className="tech-tag">Spring Boot</span>
+              <span className="tech-tag">Spring Cloud</span>
+              <span className="tech-tag">Spring Security</span>
+              <span className="tech-tag">JWT</span>
+              <span className="tech-tag">API Gateway</span>
+              <span className="tech-tag">Eureka</span>
               <span className="tech-tag">Hibernate</span>
+              <span className="tech-tag">Maven</span>
               <span className="tech-tag">MySQL</span>
+              <span className="tech-tag">PostgreSQL</span>
               <span className="tech-tag">MongoDB</span>
             </div>
           </div>
@@ -34,12 +41,10 @@ export default function TechStack() {
             <div className="tech-icon">☁</div>
             <h3 className="heading" style={{ marginBottom: '16px' }}>DevOps & Cloud</h3>
             <div className="tech-list">
-              <span className="tech-tag">Docker</span>
-              <span className="tech-tag">Kubernetes</span>
-              <span className="tech-tag">AWS</span>
+              <span className="tech-tag">Docker (Basic)</span>
+              <span className="tech-tag">Kafka (Basic)</span>
               <span className="tech-tag">CI/CD</span>
               <span className="tech-tag">Linux</span>
-              <span className="tech-tag">Nginx</span>
             </div>
           </div>
         </div>
