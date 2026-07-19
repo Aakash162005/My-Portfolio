@@ -8,10 +8,11 @@ interface ProjectCardProps {
   github: string;
   demo?: string;
   statusBadge?: string;
+  deployed?: boolean;
   delay?: string;
 }
 
-function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, delay }: ProjectCardProps) {
+function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, deployed, delay }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 120;
   const isLengthy = desc.length > maxLength;
@@ -26,6 +27,12 @@ function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, dela
           <div className="project-status-badge">
             <span className="badge-dot" style={{ backgroundColor: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }}></span>
             {statusBadge}
+          </div>
+        )}
+        {deployed && (
+          <div className="project-status-badge" style={{ background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+            <span className="badge-dot" style={{ backgroundColor: '#10b981', boxShadow: '0 0 10px #10b981', animation: 'pulse-green 2s infinite' }}></span>
+            🚀 Live
           </div>
         )}
       </div>
@@ -60,8 +67,14 @@ function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, dela
           ))}
         </div>
         <div className="project-links">
-          <a href={github} target="_blank" rel="noreferrer" className="project-link">⌥</a>
-          <a href={demo || "#"} className="project-link">↗</a>
+          <a href={github} target="_blank" rel="noreferrer" className="project-link" title="GitHub">⌥</a>
+          {deployed && demo ? (
+            <a href={demo} target="_blank" rel="noreferrer" className="project-link deployed-link" title="Live Demo">
+              🚀
+            </a>
+          ) : (
+            <a href={demo || "#"} className="project-link" title="Demo">↗</a>
+          )}
         </div>
       </div>
     </div>
@@ -115,6 +128,8 @@ export default function Projects() {
       desc: "A networking platform connecting current students with alumni for guidance and community engagement.",
       tags: ["Spring Boot", "Java", "Web Tech"],
       github: "https://github.com/Aakash162005",
+      demo: "https://alumni-network-platform-1.onrender.com/",
+      deployed: true,
       delay: "0.4s"
     }
   ];
