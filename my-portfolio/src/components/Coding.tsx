@@ -39,7 +39,7 @@ export default function Coding() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '12px' }}>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Problems Solved</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffa116' }}>4</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffa116' }}>27</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '12px' }}>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Global Rank</span>

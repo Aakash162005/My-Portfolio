@@ -101,6 +101,16 @@ export default function Projects() {
       statusBadge: "New"
     },
     {
+      emoji: "🎓",
+      title: "Alumni Network",
+      desc: "A networking platform connecting current students with alumni for guidance and community engagement.",
+      tags: ["Spring Boot", "Java", "Web Tech"],
+      github: "https://github.com/Aakash162005",
+      demo: "https://alumni-network-platform-1.onrender.com/",
+      deployed: true,
+      delay: "0.4s"
+    },
+    {
       emoji: "🌾",
       title: "AgroConnect",
       desc: "A production-ready microservices based agriculture e-commerce platform connecting farmers, customers, and shopkeepers. Built using Spring Boot Microservices with JWT Authentication, API Gateway, Eureka Service Discovery, PostgreSQL, and Role-Based Access Control. The project is currently under active development with upcoming features including Cart, Payment Gateway, Notifications, and a React frontend.",
@@ -138,16 +148,6 @@ export default function Projects() {
       tags: ["Servlet", "MySQL", "HTML/CSS/JS"],
       github: "https://github.com/Aakash162005",
       delay: "0.2s"
-    },
-    {
-      emoji: "🎓",
-      title: "Alumni Network",
-      desc: "A networking platform connecting current students with alumni for guidance and community engagement.",
-      tags: ["Spring Boot", "Java", "Web Tech"],
-      github: "https://github.com/Aakash162005",
-      demo: "https://alumni-network-platform-1.onrender.com/",
-      deployed: true,
-      delay: "0.4s"
     }
   ];
 
