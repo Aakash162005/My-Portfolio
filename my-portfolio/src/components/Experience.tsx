@@ -28,7 +28,7 @@ export default function Experience() {
             <div className="timeline-date">2023 - 2027</div>
             <h3 className="timeline-role">B.Tech in Computer Engineering</h3>
             <div className="timeline-company">R C Patel Institute of Technology, Shirpur</div>
-            <p className="project-desc">Currently CGPA: 7.55/10.</p>
+            <p className="project-desc">Currently CGPA: 7.65/10.</p>
           </div>
           <div className="timeline-item reveal">
             <div className="timeline-dot"></div>
