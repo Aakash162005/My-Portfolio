@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import gramsetuImage from '../assets/Gramsetu.png';
 
 interface ProjectCardProps {
-  emoji: string;
+  emoji?: string;
+  image?: string;
   title: string;
   desc: string;
   tags: string[];
@@ -12,7 +14,7 @@ interface ProjectCardProps {
   delay?: string;
 }
 
-function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, deployed, delay }: ProjectCardProps) {
+function ProjectCard({ emoji, image, title, desc, tags, github, demo, statusBadge, deployed, delay }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 120;
   const isLengthy = desc.length > maxLength;
@@ -22,7 +24,11 @@ function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, depl
   return (
     <div className="project-card reveal" style={delay ? { animationDelay: delay } : undefined}>
       <div className="project-image-placeholder">
-        {emoji}
+        {image ? (
+          <img src={image} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          emoji
+        )}
         {statusBadge && (
           <div className="project-status-badge">
             <span className="badge-dot" style={{ backgroundColor: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }}></span>
@@ -83,6 +89,17 @@ function ProjectCard({ emoji, title, desc, tags, github, demo, statusBadge, depl
 
 export default function Projects() {
   const projectsData: ProjectCardProps[] = [
+    {
+      image: gramsetuImage,
+      emoji: "🌿",
+      title: "GramSetu",
+      desc: "A comprehensive Digital Panchayat platform bridging the gap between village administration and citizens. Features a secure citizen dashboard, complaint management, real-time news feed, schemes directory, and a robust admin moderation panel.",
+      tags: ["Next.js", "React", "Tailwind CSS", "PostgreSQL", "Prisma", "Lucide React"],
+      github: "https://github.com/Aakash162005/GramSetu",
+      demo: "https://gramsetu-ap.vercel.app/",
+      deployed: true,
+      statusBadge: "New"
+    },
     {
       emoji: "🌾",
       title: "AgroConnect",
