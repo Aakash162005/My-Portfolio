@@ -31,7 +31,6 @@ export default function TechStack() {
               <span className="tech-tag">Eureka</span>
               <span className="tech-tag">Hibernate</span>
               <span className="tech-tag">Maven</span>
-              <span className="tech-tag">MySQL</span>
             </div>
           </div>
           <div className="tech-card reveal" style={{ animationDelay: '0.2s' }}>
@@ -43,6 +42,7 @@ export default function TechStack() {
               <span className="tech-tag">Prisma ORM</span>
               <span className="tech-tag">PostgreSQL</span>
               <span className="tech-tag">MongoDB</span>
+              <span className="tech-tag">MySQL</span>
             </div>
           </div>
           <div className="tech-card reveal" style={{ animationDelay: '0.3s' }}>

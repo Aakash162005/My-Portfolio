@@ -380,12 +380,6 @@ section {
 .section-header {
   text-align: center;
   margin-bottom: 60px;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.section-header.visible {
-  animation: fadeInUp 0.8s forwards;
 }
 
 .section-label {
@@ -401,6 +395,52 @@ section {
 .section-title {
   font-size: 2.5rem;
   margin-bottom: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ABOUT SECTION — Staggered Reveal Animations           */
+/* ═══════════════════════════════════════════════════════ */
+.about-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(4px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.about-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Specific element entrance variations */
+.about-image-container.about-reveal {
+  transform: translateX(-40px) scale(0.95);
+}
+
+.about-image-container.about-reveal.visible {
+  transform: translateX(0) scale(1);
+}
+
+.about-content .hero-desc.about-reveal {
+  transform: translateX(30px) translateY(15px);
+}
+
+.about-content .hero-desc.about-reveal.visible {
+  transform: translateX(0) translateY(0);
+}
+
+/* Section header in About — fade in + slide up with scale */
+.section-header.about-reveal {
+  transform: translateY(30px) scale(0.97);
+}
+
+.section-header.about-reveal.visible {
+  transform: translateY(0) scale(1);
 }
 
 /* Tech Stack */
@@ -618,10 +658,12 @@ section {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.5);
     opacity: 0.5;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -741,16 +783,25 @@ footer {
 }
 
 /* Reveal Animation Base */
-.about-content,
-.about-image-container,
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .contact-wrapper {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
 
-.about-content.visible,
-.about-image-container.visible,
 .contact-wrapper.visible {
   opacity: 1;
   transform: translateY(0);
@@ -792,6 +843,636 @@ footer {
     transform: scale(1);
   }
 }
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  3D DEV ECOSYSTEM â€” Premium About Section Animation    */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+/* â”€â”€â”€ Scene Container â”€â”€â”€ */
+.d3-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  margin: 0 auto;
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 0;
+  --my: 0;
+  overflow: visible;
+  isolation: isolate;
+}
+
+/* â”€â”€â”€ Ambient Orbs â”€â”€â”€ */
+.d3-ambient {
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+.d3-orb {
+  position: absolute;
+  border-radius: 50%;
+  animation: d3OrbDrift 18s ease-in-out infinite alternate;
+}
+
+.d3-orb-1 {
+  width: 220px; height: 220px;
+  top: 10%; left: 5%;
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.d3-orb-2 {
+  width: 180px; height: 180px;
+  bottom: 15%; right: 5%;
+  background: rgba(168, 85, 247, 0.12);
+  animation-delay: -6s;
+}
+
+.d3-orb-3 {
+  width: 140px; height: 140px;
+  top: 50%; left: 60%;
+  background: rgba(16, 185, 129, 0.10);
+  animation-delay: -12s;
+}
+
+@keyframes d3OrbDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -20px) scale(1.15); }
+}
+
+/* â”€â”€â”€ Background Grid â”€â”€â”€ */
+.d3-grid {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 15%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 15%, transparent 70%);
+  animation: d3GridPulse 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes d3GridPulse {
+  0%   { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+/* â”€â”€â”€ Perspective Wrapper â”€â”€â”€ */
+.d3-persp {
+  position: absolute;
+  inset: 0;
+  perspective: 800px;
+  perspective-origin: 50% 45%;
+  z-index: 2;
+}
+
+/* â”€â”€â”€ 3D Rotation Layer (mouse-driven) â”€â”€â”€ */
+.d3-rotate-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  CONNECTION LINES                                       */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.d3-connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.d3-conn-line {
+  stroke-dasharray: 4 6;
+  stroke-dashoffset: 0;
+  animation: d3ConnFlow 4s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes d3ConnFlow {
+  to { stroke-dashoffset: -20; }
+}
+
+.d3-data-dot {
+  filter: blur(0.3px);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  CENTRAL LAPTOP                                         */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.d3-laptop {
+  position: absolute;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%) translateZ(0px);
+  width: 180px;
+  z-index: 10;
+  transform-style: preserve-3d;
+  animation: d3LaptopBreathe 5s ease-in-out infinite;
+}
+
+@keyframes d3LaptopBreathe {
+  0%, 100% { transform: translateX(-50%) translateZ(0px) translateY(0); }
+  50%      { transform: translateX(-50%) translateZ(8px) translateY(-4px); }
+}
+
+/* â”€â”€ Screen â”€â”€ */
+.d3-screen {
+  position: relative;
+  width: 100%;
+  height: 110px;
+  background: #080e1f;
+  border: 1.5px solid rgba(99, 102, 241, 0.3);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  transform-origin: bottom center;
+  transform: perspective(500px) rotateX(8deg);
+  box-shadow:
+    0 0 30px rgba(99, 102, 241, 0.08),
+    inset 0 0 20px rgba(99, 102, 241, 0.03);
+}
+
+.d3-screen-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Terminal top bar */
+.d3-screen-topbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  background: rgba(17, 24, 39, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.d3-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.d3-dot-r { background: #ef4444; }
+.d3-dot-y { background: #eab308; }
+.d3-dot-g { background: #22c55e; }
+
+.d3-topbar-title {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  color: var(--text-dim);
+  margin-left: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* Code area */
+.d3-code-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+  padding: 6px 8px;
+}
+
+.d3-code-line {
+  height: 3px;
+  border-radius: 2px;
+  animation: d3CodeType 3s ease-in-out infinite;
+  will-change: opacity, width;
+}
+
+@keyframes d3CodeType {
+  0%   { opacity: 0; transform: scaleX(0); transform-origin: left; }
+  15%  { opacity: 0.85; transform: scaleX(1); }
+  70%  { opacity: 0.7; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(0); transform-origin: right; }
+}
+
+/* Screen reflection sweep */
+.d3-screen-reflection {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 60%,
+    transparent 100%
+  );
+  animation: d3ReflectionSweep 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes d3ReflectionSweep {
+  0%   { transform: translateX(-120%); }
+  50%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* Screen outward glow */
+.d3-screen-glow {
+  position: absolute;
+  bottom: -20px;
+  left: -15%;
+  width: 130%;
+  height: 50px;
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(168, 85, 247, 0.06) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: d3ScreenPulse 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes d3ScreenPulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  DEVELOPER CHARACTER                                    */
+/* ═══════════════════════════════════════════════════════ */
+.d3-developer {
+  position: absolute;
+  bottom: 22%; /* Same base as laptop */
+  left: 50%;
+  transform: translateX(-50%) translateZ(-30px); /* Behind laptop */
+  width: 140px;
+  height: 180px;
+  z-index: 5; /* Lower than laptop (10) */
+  transform-style: preserve-3d;
+  animation: d3DevBreathe 5s ease-in-out infinite;
+}
+
+@keyframes d3DevBreathe {
+  0%, 100% { transform: translateX(-50%) translateZ(-30px) translateY(0); }
+  50%      { transform: translateX(-50%) translateZ(-30px) translateY(-5px); }
+}
+
+/* ── Body (Hoodie) ── */
+.d3-dev-body {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 110px;
+  background: linear-gradient(135deg, var(--bg-alt) 0%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 60px 60px 20px 20px;
+  box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+}
+
+.d3-dev-hoodie-strings {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  border-left: 2px solid rgba(255,255,255,0.1);
+  border-right: 2px solid rgba(255,255,255,0.1);
+}
+
+/* ── Head ── */
+.d3-dev-head {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 85px;
+  background: linear-gradient(135deg, #1e293b 0%, var(--bg) 100%);
+  border-radius: 35px 35px 25px 25px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 
+    0 10px 15px rgba(0,0,0,0.6),
+    inset 0 2px 10px rgba(99, 102, 241, 0.1);
+  animation: d3HeadNod 6s ease-in-out infinite;
+}
+
+@keyframes d3HeadNod {
+  0%, 100% { transform: translateX(-50%) rotate(0deg) translateY(0); }
+  25%      { transform: translateX(-50%) rotate(2deg) translateY(2px); }
+  75%      { transform: translateX(-50%) rotate(-2deg) translateY(2px); }
+}
+
+/* ── Face & Glasses ── */
+.d3-dev-face {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 35px;
+}
+
+.d3-dev-glasses {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.d3-dev-glasses::before,
+.d3-dev-glasses::after {
+  content: '';
+  width: 20px;
+  height: 14px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1.5px solid var(--primary);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+.d3-glass-reflection {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  animation: d3GlassSweep 4s infinite linear;
+}
+
+@keyframes d3GlassSweep {
+  0% { transform: translateX(-20px); opacity: 0; }
+  20%, 100% { transform: translateX(30px); opacity: 1; }
+}
+
+/* ── Arms & Hands (Typing Animation) ── */
+.d3-dev-arm {
+  position: absolute;
+  top: 90px;
+  width: 28px;
+  height: 60px;
+  background: #1e293b;
+  border-radius: 14px;
+  transform-origin: top center;
+  z-index: 12; /* Above laptop base, slightly behind screen */
+}
+
+.d3-arm-left {
+  left: 5px;
+  transform: rotate(35deg) translateZ(10px);
+}
+
+.d3-arm-right {
+  right: 5px;
+  transform: rotate(-35deg) translateZ(10px);
+}
+
+.d3-dev-forearm {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 50px;
+  background: #0f172a;
+  border-radius: 12px;
+  transform-origin: top center;
+  animation: d3TypingArm 0.3s infinite alternate;
+}
+
+.d3-arm-left .d3-dev-forearm {
+  animation-delay: 0.15s;
+}
+
+.d3-dev-hand {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 15px;
+  background: #334155;
+  border-radius: 10px;
+}
+
+@keyframes d3TypingArm {
+  0% { transform: translateX(-50%) rotate(0deg) translateY(0); }
+  100% { transform: translateX(-50%) rotate(10deg) translateY(4px); }
+}
+
+/* ── Base / Keyboard ── */
+.d3-base {
+  position: relative;
+  width: 110%;
+  height: 12px;
+  left: -5%;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 0 0 4px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(99, 102, 241, 0.15);
+  overflow: hidden;
+}
+
+.d3-kb-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.25) 30%,
+    rgba(168, 85, 247, 0.20) 70%,
+    transparent 100%
+  );
+  animation: d3KbGlow 4s ease-in-out infinite;
+}
+
+@keyframes d3KbGlow {
+  0%, 100% { transform: translateX(-110%); opacity: 0.8; }
+  50%      { transform: translateX(110%); opacity: 1; }
+}
+
+.d3-trackpad {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Laptop shadow */
+.d3-laptop-shadow {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 18px;
+  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.12) 0%, transparent 75%);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  FLOATING PARTICLES                                     */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.d3-particles {
+  position: absolute;
+  inset: -10%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.d3-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
+  animation: d3ParticleFloat ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes d3ParticleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1);     opacity: 0; }
+  15%  { opacity: var(--p-opacity, 0.3); }
+  50%  { transform: translateY(-30px) translateX(8px) scale(1.2); opacity: var(--p-opacity, 0.2); }
+  85%  { opacity: var(--p-opacity, 0.3); }
+  100% { transform: translateY(-60px) translateX(-5px) scale(0.8); opacity: 0; }
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  AMBIENT LIGHT BEAMS                                    */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.d3-beam {
+  position: absolute;
+  width: 100px;
+  height: 260px;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  opacity: 0;
+  animation: d3BeamPulse 7s ease-in-out infinite;
+}
+
+.d3-beam-1 {
+  top: -5%;
+  left: 8%;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.10), transparent 80%);
+  transform: rotate(-12deg);
+}
+
+.d3-beam-2 {
+  top: -5%;
+  right: 8%;
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.08), transparent 80%);
+  transform: rotate(12deg);
+  animation-delay: -3.5s;
+}
+
+@keyframes d3BeamPulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.9; }
+}
+
+/* â”€â”€â”€ About Image Container Override â”€â”€â”€ */
+.about-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  RESPONSIVE â€” 3D Dev Scene                              */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+@media (max-width: 968px) {
+  .d3-scene {
+    max-width: 380px;
+  }
+
+  .d3-laptop { width: 150px; }
+  .d3-screen { height: 90px; }
+
+  .d3-logo-fg { --lsize-scale: 0.85; }
+  .d3-logo-mid { --lsize-scale: 0.8; }
+  .d3-logo-bg { --lsize-scale: 0.75; }
+
+  .d3-beam { width: 70px; height: 180px; }
+}
+
+@media (max-width: 480px) {
+  .d3-scene {
+    max-width: 300px;
+  }
+
+  .d3-laptop { width: 120px; }
+  .d3-screen { height: 72px; }
+
+  .d3-code-line { height: 2px; }
+  .d3-code-area { gap: 2.5px; padding: 4px 6px; }
+
+  .d3-logo {
+    width: calc(var(--lsize, 44px) * 0.7) !important;
+    height: calc(var(--lsize, 44px) * 0.7) !important;
+  }
+
+  .d3-logo-icon { font-size: 0.9rem; }
+  .d3-logo-label { font-size: 0.38rem; }
+  .d3-logo-tooltip { display: none; }
+
+  .d3-beam { display: none; }
+  .d3-particles { display: none; }
+}
+
+/* â”€â”€â”€ prefers-reduced-motion â”€â”€â”€ */
+@media (prefers-reduced-motion: reduce) {
+  .d3-logo,
+  .d3-particle,
+  .d3-orb,
+  .d3-beam,
+  .d3-code-line,
+  .d3-kb-glow,
+  .d3-screen-reflection,
+  .d3-laptop,
+  .d3-conn-line,
+  .d3-data-dot circle {
+    animation: none !important;
+  }
+
+  .d3-rotate-layer {
+    transform: none !important;
+  }
+
+  .d3-logo {
+    transform:
+      translate(-50%, -50%)
+      translate(var(--lx, 0%), var(--ly, 0%)) !important;
+  }
+}
+
 
 /* Responsive */
 /* Utility Classes */

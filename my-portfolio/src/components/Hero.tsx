@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Hero() {
   useEffect(() => {
@@ -44,6 +44,19 @@ export default function Hero() {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <section id="hero">
       <div className="container">
@@ -63,7 +76,54 @@ export default function Hero() {
             </p>
             <div className="cta-buttons">
               <a href="#projects" className="btn btn-primary">⚡ View Projects</a>
-              <a href="\Aakash Patil Resume.pdf" className="btn btn-outline" download>📄 Download Resume</a>
+              <div className="dropdown-container" ref={dropdownRef} style={{ position: 'relative', display: 'inline-block' }}>
+                <button 
+                  className="btn btn-outline" 
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  📄 Download Resume
+                </button>
+                {isDropdownOpen && (
+                  <div 
+                    className="dropdown-menu" 
+                    style={{ 
+                      position: 'absolute', 
+                      top: '100%', 
+                      left: 0, 
+                      marginTop: '0.5rem',
+                      background: 'rgba(15, 23, 42, 0.95)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(148, 163, 184, 0.2)',
+                      borderRadius: '0.5rem',
+                      padding: '0.5rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.5rem',
+                      zIndex: 50,
+                      minWidth: '200px'
+                    }}
+                  >
+                    <a 
+                      href="Aakash_Patil-Java_Developer-resume.pdf" 
+                      className="btn btn-outline" 
+                      style={{ width: '100%', justifyContent: 'flex-start', padding: '0.5rem 1rem' }} 
+                      download
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      📄 Java Developer
+                    </a>
+                    <a 
+                      href="Aakash-Marn-Resume.pdf" 
+                      className="btn btn-outline" 
+                      style={{ width: '100%', justifyContent: 'flex-start', padding: '0.5rem 1rem' }} 
+                      download
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      📄 MERN Developer
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="hero-image-wrapper">

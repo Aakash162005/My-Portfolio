@@ -1,39 +1,44 @@
 import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.current) return;
 
     setStatus('sending');
 
-    // IMPORTANT: Replace these with your actual EmailJS credentials
-    // Create an account at https://www.emailjs.com/
-    const serviceId = 'YOUR_SERVICE_ID';
-    const templateId = 'YOUR_TEMPLATE_ID';
-    const publicKey = 'YOUR_PUBLIC_KEY';
+    const formData = new FormData(form.current);
+    const data = {
+      user_name: formData.get('user_name'),
+      user_email: formData.get('user_email'),
+      message: formData.get('message'),
+    };
 
-    emailjs
-      .sendForm(serviceId, templateId, form.current, {
-        publicKey: publicKey,
-      })
-      .then(
-        () => {
-          setStatus('success');
-          form.current?.reset();
-          setTimeout(() => setStatus('idle'), 5000);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        (error) => {
-          console.error('FAILED...', error.text);
-          setStatus('error');
-          setTimeout(() => setStatus('idle'), 5000);
-        },
-      );
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        form.current.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('FAILED...', error);
+      setStatus('error');
+    } finally {
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   return (

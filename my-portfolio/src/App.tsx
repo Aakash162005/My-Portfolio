@@ -26,7 +26,7 @@ function App() {
       });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal, .tech-card, .project-card, .timeline-item').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .tech-card, .project-card, .timeline-item, .contact-wrapper').forEach(el => observer.observe(el));
 
     return () => {
       observer.disconnect();
