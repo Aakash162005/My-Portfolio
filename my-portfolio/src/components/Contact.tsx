@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
+import Reveal from './Reveal';
 
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
@@ -44,7 +45,7 @@ export default function Contact() {
   return (
     <section id="contact">
       <div className="container">
-        <div className="contact-wrapper reveal">
+        <Reveal className="contact-wrapper">
           <div>
             <h2 className="section-title">Let's connect</h2>
 
@@ -90,32 +91,21 @@ export default function Contact() {
                     <circle cx="4" cy="4" r="2" />
                   </svg>
                 </a>
-                <a href="#" target="_blank" rel="noreferrer" title="Instagram"
-                  style={{ width: '44px', height: '44px', background: 'var(--bg)', border: '1px solid var(--surface-border)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)', textDecoration: 'none', transition: 'var(--transition)' }}
-                  onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-                  onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--surface-border)'; e.currentTarget.style.transform = 'none'; }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
           <form ref={form} className="contact-form" onSubmit={sendEmail}>
             <div className="form-group">
-              <label>Name</label>
-              <input type="text" name="user_name" className="form-control" placeholder="Aakash Patil" required />
+              <label htmlFor="contact-name">Name</label>
+              <input id="contact-name" type="text" name="user_name" className="form-control" placeholder="Aakash Patil" required />
             </div>
             <div className="form-group">
-              <label>Email</label>
-              <input type="email" name="user_email" className="form-control" placeholder="aakash@example.com" required />
+              <label htmlFor="contact-email">Email</label>
+              <input id="contact-email" type="email" name="user_email" className="form-control" placeholder="aakash@example.com" required />
             </div>
             <div className="form-group">
-              <label>Message</label>
-              <textarea name="message" className="form-control" rows={4} placeholder="How can I help you?" required></textarea>
+              <label htmlFor="contact-message">Message</label>
+              <textarea id="contact-message" name="message" className="form-control" rows={4} placeholder="How can I help you?" required></textarea>
             </div>
             
             <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
@@ -123,17 +113,17 @@ export default function Contact() {
             </button>
 
             {status === 'success' && (
-              <p style={{ color: 'var(--accent)', marginTop: '10px', fontSize: '0.9rem' }}>
+              <p role="status" style={{ color: 'var(--accent)', marginTop: '10px', fontSize: '0.9rem' }}>
                 ✅ Message sent successfully! Auto-reply has been triggered.
               </p>
             )}
             {status === 'error' && (
-              <p style={{ color: '#ff6b6b', marginTop: '10px', fontSize: '0.9rem' }}>
+              <p role="alert" style={{ color: '#ff6b6b', marginTop: '10px', fontSize: '0.9rem' }}>
                 ❌ Failed to send message. Please try again.
               </p>
             )}
           </form>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

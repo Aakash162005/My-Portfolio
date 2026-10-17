@@ -1,168 +1,153 @@
-import { useState } from 'react';
-import gramsetuImage from '../assets/Gramsetu.png';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import type { MotionValue } from 'motion/react';
+import { projects } from './portfolioData';
+import type { Project } from './portfolioData';
 
 interface ProjectCardProps {
-  emoji?: string;
-  image?: string;
-  title: string;
-  desc: string;
-  tags: string[];
-  github: string;
-  demo?: string;
-  statusBadge?: string;
-  deployed?: boolean;
-  delay?: string;
+  project: Project;
+  index: number;
+  progress: MotionValue<number>;
+  animate: boolean;
 }
 
-function ProjectCard({ emoji, image, title, desc, tags, github, demo, statusBadge, deployed, delay }: ProjectCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const maxLength = 120;
-  const isLengthy = desc.length > maxLength;
-
-  const displayText = isExpanded ? desc : (isLengthy ? `${desc.slice(0, maxLength)}...` : desc);
+function ProjectCard({ project, index, progress, animate }: ProjectCardProps) {
+  const center = projects.length === 1 ? 0 : index / (projects.length - 1);
+  const opacity = useTransform(progress, (value) => 0.72 + 0.28 * Math.max(0, 1 - Math.abs(value - center) / 0.3));
+  const scale = useTransform(progress, (value) => 0.975 + 0.025 * Math.max(0, 1 - Math.abs(value - center) / 0.3));
 
   return (
-    <div className="project-card reveal" style={delay ? { animationDelay: delay } : undefined}>
+    <motion.article
+      className="project-card"
+      style={animate ? { opacity, scale } : undefined}
+    >
       <div className="project-image-placeholder">
-        {image ? (
-          <img src={image} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {project.image ? (
+          <img src={project.image} alt={`${project.title} project preview`} loading="lazy" />
         ) : (
-          emoji
-        )}
-        {statusBadge && (
-          <div className="project-status-badge">
-            <span className="badge-dot" style={{ backgroundColor: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }}></span>
-            {statusBadge}
+          <div className="project-preview-art" aria-label={`${project.title} preview`}>
+            <div className="preview-topbar" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span className="preview-window-title">{project.title}</span>
+            </div>
+            <div className="preview-content">
+              <span className="preview-emoji" aria-hidden="true">{project.emoji}</span>
+              <span className="preview-title">{project.title}</span>
+              <span className="preview-caption">{project.tags.slice(0, 3).join(' · ')}</span>
+              <span className="preview-rule" />
+              <span className="preview-rule preview-rule-short" />
+            </div>
           </div>
         )}
-        {deployed && (
-          <div className="project-status-badge" style={{ background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-            <span className="badge-dot" style={{ backgroundColor: '#10b981', boxShadow: '0 0 10px #10b981', animation: 'pulse-green 2s infinite' }}></span>
-            🚀 Live
-          </div>
+        {project.status && (
+          <span className="project-status-badge">
+            <span className="status-mark" />
+            {project.status}
+          </span>
         )}
       </div>
       <div className="project-info">
-        <h3 className="project-title">{title}</h3>
-        <p className="project-desc">
-          {displayText}
-          {isLengthy && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="read-more-btn"
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--primary)',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 600,
-                fontSize: '0.85rem',
-                marginLeft: '6px',
-                padding: 0,
-                textDecoration: 'underline'
-              }}
-            >
-              {isExpanded ? 'Show Less' : 'Read More'}
-            </button>
-          )}
-        </p>
-        <div className="project-tags">
-          {tags.map((tag, idx) => (
-            <span key={idx} className="tech-tag">{tag}</span>
-          ))}
+        <div className="project-heading">
+          <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+          <h3 className="project-title">{project.title}</h3>
+        </div>
+        <p className="project-desc">{project.desc}</p>
+        <div className="project-tags" aria-label="Technologies">
+          {project.tags.map((tag) => <span key={tag} className="tech-tag">{tag}</span>)}
         </div>
         <div className="project-links">
-          <a href={github} target="_blank" rel="noreferrer" className="project-link" title="GitHub">⌥</a>
-          {deployed && demo ? (
-            <a href={demo} target="_blank" rel="noreferrer" className="project-link deployed-link" title="Live Demo">
-              🚀
+          <a href={project.github} target="_blank" rel="noreferrer" className="project-action">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noreferrer" className="project-action project-action-live">
+              Live site <span aria-hidden="true">↗</span>
             </a>
-          ) : (
-            <a href={demo || "#"} className="project-link" title="Demo">↗</a>
           )}
         </div>
       </div>
-    </div>
+    </motion.article>
   );
 }
 
 export default function Projects() {
-  const projectsData: ProjectCardProps[] = [
-    {
-      image: gramsetuImage,
-      emoji: "🌿",
-      title: "GramSetu",
-      desc: "A comprehensive Digital Panchayat platform bridging the gap between village administration and citizens. Features a secure citizen dashboard, complaint management, real-time news feed, schemes directory, and a robust admin moderation panel.",
-      tags: ["Next.js", "React", "Tailwind CSS", "PostgreSQL", "Prisma", "Lucide React"],
-      github: "https://github.com/Aakash162005/GramSetu",
-      demo: "https://gramsetu-ap.vercel.app/",
-      deployed: true,
-      statusBadge: "New"
-    },
-    {
-      emoji: "🎓",
-      title: "Alumni Network",
-      desc: "A networking platform connecting current students with alumni for guidance and community engagement.",
-      tags: ["Spring Boot", "Java", "Web Tech"],
-      github: "https://github.com/Aakash162005",
-      demo: "https://alumni-network-platform-1.onrender.com/",
-      deployed: true,
-      delay: "0.4s"
-    },
-    {
-      emoji: "🌾",
-      title: "AgroConnect",
-      desc: "A production-ready microservices based agriculture e-commerce platform connecting farmers, customers, and shopkeepers. Built using Spring Boot Microservices with JWT Authentication, API Gateway, Eureka Service Discovery, PostgreSQL, and Role-Based Access Control. The project is currently under active development with upcoming features including Cart, Payment Gateway, Notifications, and a React frontend.",
-      tags: ["Java", "Spring Boot", "Spring Cloud", "Spring Security", "JWT", "API Gateway", "Eureka", "PostgreSQL", "Hibernate", "Maven"],
-      github: "https://github.com/Aakash162005/Agro-Connect",
-      statusBadge: "Active Development"
-    },
-    {
-      emoji: "🌾",
-      title: "KisanMate",
-      desc: "A farmer-centric platform providing tools, weather info, seeds, and fertilizer info with a user-friendly dashboard.",
-      tags: ["Java", "Spring MVC", "SQL"],
-      github: "https://github.com/Aakash162005",
-      delay: "0.2s"
-    },
-    {
-      emoji: "🛒",
-      title: "OfferBazaar",
-      desc: "Local vendor offers platform aggregating deals to increase visibility and sales for local businesses.",
-      tags: ["Advanced Java", "Servlet", "SQL"],
-      github: "https://github.com/Aakash162005",
-      delay: "0.4s"
-    },
-    {
-      emoji: "🌉",
-      title: "SkillBridge",
-      desc: "Skill development platform featuring AI-based resume analysis and personalized feedback for job seekers.",
-      tags: ["React", "Spring Boot", "AI APIs", "MySQL"],
-      github: "https://github.com/Aakash162005"
-    },
-    {
-      emoji: "🏦",
-      title: "Bank Application",
-      desc: "A web-based banking application supporting secure money transfers, deposits, and withdrawals.",
-      tags: ["Servlet", "MySQL", "HTML/CSS/JS"],
-      github: "https://github.com/Aakash162005",
-      delay: "0.2s"
+  const sectionRef = useRef<HTMLElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 900px)').matches);
+  const [travel, setTravel] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const useScrollGallery = isDesktop && !reduceMotion;
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], [0, -travel]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 900px)');
+    const updateLayout = () => setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener('change', updateLayout);
+    return () => mediaQuery.removeEventListener('change', updateLayout);
+  }, []);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track || !isDesktop || reduceMotion) {
+      setTravel(0);
+      return;
     }
-  ];
+
+    const measure = () => setTravel(Math.max(0, track.scrollWidth - viewport.clientWidth));
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, [isDesktop, reduceMotion]);
 
   return (
-    <section id="projects">
-      <div className="container">
-        <div className="section-header reveal">
-          <span className="section-label">// showcase</span>
-          <h2 className="section-title">Featured Projects</h2>
+    <section
+      id="projects"
+      ref={sectionRef}
+      className={`projects-section${isDesktop ? ' projects-desktop' : ''}${reduceMotion ? ' reduced-gallery' : ''}`}
+      style={useScrollGallery ? { height: `calc(100vh + ${travel}px)` } : undefined}
+    >
+      <div className="projects-sticky">
+        <div className="container projects-heading">
+          <div>
+            <span className="section-label">// selected work</span>
+            <h2 className="section-title">Featured Projects</h2>
+          </div>
+          <p className="projects-instruction">
+            {useScrollGallery ? 'Scroll to explore' : isDesktop ? 'A selection of recent work' : 'Swipe to explore'}
+            <span aria-hidden="true">{useScrollGallery ? ' ↓' : isDesktop ? '' : ' →'}</span>
+          </p>
         </div>
-        <div className="projects-grid">
-          {projectsData.map((project, idx) => (
-            <ProjectCard key={idx} {...project} />
-          ))}
+
+        <div className="projects-viewport" ref={viewportRef} aria-label="Featured project gallery">
+          <motion.div className="projects-track" ref={trackRef} style={{ x: useScrollGallery ? x : 0 }}>
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                progress={scrollYProgress}
+                animate={useScrollGallery}
+              />
+            ))}
+          </motion.div>
         </div>
+
+        {useScrollGallery && (
+          <div className="projects-progress" aria-hidden="true">
+            <motion.span style={{ scaleX: scrollYProgress }} />
+          </div>
+        )}
       </div>
     </section>
   );
