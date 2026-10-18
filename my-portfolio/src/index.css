@@ -1479,24 +1479,25 @@ footer {
 }
 
 .intro-name {
-  display: flex;
-  justify-content: center;
+  display: block;
+  max-width: 100%;
   color: var(--text-main);
-  font-family: var(--font-heading);
-  font-size: clamp(2.15rem, 8vw, 6rem);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1;
+  font-family: 'Segoe Script', 'Brush Script MT', 'Lucida Handwriting', cursive;
+  font-size: clamp(3rem, 10vw, 7.2rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.08;
   white-space: nowrap;
 }
 
-.intro-rule {
-  width: clamp(76px, 14vw, 132px);
-  height: 1px;
-  margin: 26px 0 19px;
-  background: var(--primary);
-  box-shadow: 0 0 18px rgba(var(--primary-rgb), 0.55);
-  transform-origin: center;
+.intro-signature-line {
+  width: min(78vw, 420px);
+  height: 24px;
+  margin: 2px 0 16px;
+  overflow: visible;
+  color: var(--primary);
+  filter: drop-shadow(0 0 6px rgba(var(--primary-rgb), 0.4));
 }
 
 .intro-role {
@@ -1917,7 +1918,6 @@ footer {
 
   .intro-name {
     font-size: 1.9rem;
-    letter-spacing: 0.08em;
   }
 
   .hero-code-card {

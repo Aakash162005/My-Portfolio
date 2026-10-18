@@ -10,6 +10,7 @@ const navigation = [
 ];
 
 export default function Navbar() {
+  const isAchievementsPage = window.location.pathname.replace(/\/$/, '') === '/achievements';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -53,7 +54,7 @@ export default function Navbar() {
 
   return (
     <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''}${isMenuOpen ? ' menu-open' : ''}`}>
-      <a href="#hero" className="nav-logo" onClick={closeMenu} aria-label="Aakash Patil, home">
+      <a href="/#hero" className="nav-logo" onClick={closeMenu} aria-label="Aakash Patil, home">
         <img src="/LOGO OF AK.png" alt="" />
       </a>
 
@@ -77,21 +78,24 @@ export default function Navbar() {
         >
           {navigation.map(({ label, href, id }) => (
             <a
-              href={href}
+              href={isAchievementsPage ? `/${href}` : href}
               key={id}
-              className={activeSection === id ? 'active' : ''}
-              aria-current={activeSection === id ? 'location' : undefined}
+              className={!isAchievementsPage && activeSection === id ? 'active' : ''}
+              aria-current={!isAchievementsPage && activeSection === id ? 'location' : undefined}
               onClick={closeMenu}
             >
               {label}
             </a>
           ))}
-          <a href="#contact" className="btn btn-primary mobile-only" onClick={closeMenu}>
+          <a href="/achievements" className={isAchievementsPage ? 'active achievements-nav-link' : ''} aria-current={isAchievementsPage ? 'page' : undefined} onClick={closeMenu}>
+            Achievements
+          </a>
+          <a href={isAchievementsPage ? '/#contact' : '#contact'} className="btn btn-primary mobile-only" onClick={closeMenu}>
             Hire me
           </a>
       </div>
 
-      <a href="#contact" className="btn btn-primary desktop-only">
+      <a href={isAchievementsPage ? '/#contact' : '#contact'} className="btn btn-primary desktop-only">
         Hire me <span aria-hidden="true">↗</span>
       </a>
     </nav>

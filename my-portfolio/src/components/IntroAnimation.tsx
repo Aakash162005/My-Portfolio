@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 
-const name = 'AAKASH PATIL';
-
 export default function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const [isLeaving, setIsLeaving] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const leaveDelay = reduceMotion ? 80 : 1650;
+    const leaveDelay = reduceMotion ? 80 : 2200;
     const exitDuration = reduceMotion ? 240 : 620;
     const leaveTimer = window.setTimeout(() => setIsLeaving(true), leaveDelay);
     const completeTimer = window.setTimeout(onComplete, leaveDelay + exitDuration);
@@ -38,37 +36,24 @@ export default function IntroAnimation({ onComplete }: { onComplete: () => void 
         </motion.p>
         <motion.h1
           className="intro-name"
-          initial={reduceMotion ? false : 'hidden'}
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: reduceMotion ? 0 : 0.045 },
-            },
-          }}
+          initial={reduceMotion ? false : { clipPath: 'inset(0 100% 0 0)' }}
+          animate={{ clipPath: 'inset(0 0% 0 0)' }}
+          transition={{ duration: reduceMotion ? 0 : 1.3, delay: reduceMotion ? 0 : 0.25, ease: [0.65, 0, 0.35, 1] }}
         >
-          {Array.from(name, (letter, index) => (
-            <motion.span
-              key={`${letter}-${index}`}
-              variants={{
-                hidden: { opacity: 0, y: 18 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: reduceMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] },
-                },
-              }}
-            >
-              {letter === ' ' ? '\u00a0' : letter}
-            </motion.span>
-          ))}
+          Aakash Patil
         </motion.h1>
-        <motion.span
-          className="intro-rule"
-          initial={reduceMotion ? false : { scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: reduceMotion ? 0 : 0.52, delay: reduceMotion ? 0 : 0.58, ease: [0.22, 1, 0.36, 1] }}
-        />
+        <svg className="intro-signature-line" viewBox="0 0 420 24" fill="none" aria-hidden="true">
+          <motion.path
+            d="M8 13C92 7 150 7 222 12C278 16 336 16 393 10C401 9 408 7 414 4"
+            pathLength={1}
+            initial={reduceMotion ? false : { pathLength: 0, opacity: 0.4 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: reduceMotion ? 0 : 0.75, delay: reduceMotion ? 0 : 1.36, ease: [0.22, 1, 0.36, 1] }}
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
         <motion.p
           className="intro-role"
           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
